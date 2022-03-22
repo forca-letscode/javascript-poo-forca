@@ -1,5 +1,17 @@
-function iniciaJogo() {
+class Usuario {
+    constructor(nome, email) {
+        this.nome = nome
+        this.email = email
+    }
+}
 
+function iniciaJogo() {
+    //  Inserir validação nas entradas abaixo.
+    //  TODO ITEM #5
+    //  ITEM #1
+    const nome = prompt("Digite seu nome:");
+    const email = prompt("Digite seu email:");
+    const jogador = new Usuario(nome, email);
 }
 
 //  Loop infinito para jogar novamente até o usuário desejar sair
