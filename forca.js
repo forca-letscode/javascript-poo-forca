@@ -2,6 +2,10 @@ class Usuario {
     constructor(nome, email) {
         this.nome = nome
         this.email = email
+        //  Contador de Vitórias e Derrotas
+        //  ITEM #4
+        this.vitorias = 0
+        this.derrotas = 0
     }
 }
 
@@ -22,6 +26,6 @@ while(jogar) {  //  Implicitamente: jogar == true
 
     //  Inserir validação na entrada abaixo.
     //  TODO ITEM #5
-    const resposta = prompt("Deseja jogar novamente?\n1 - SIM\n2 - NÃO").toLowerCase();
+    const resposta = prompt("Deseja jogar novamente?\n1 - SIM\n2 - NÃO");
     if (resposta == 2) jogar = false;
 }
