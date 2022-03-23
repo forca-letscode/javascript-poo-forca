@@ -28,16 +28,34 @@ function iniciaJogo() {
           
     console.log(tema);
 
+    let palavra = '';
+
     if(tema == 1) {
-        let palavra = palavras.educacao[Math.floor(Math.random() * palavras.educacao.length)];
+        palavra = palavras.educacao[Math.floor(Math.random() * palavras.educacao.length)];
         console.log('palavra tema educação:', palavra);
     } else if(tema == 2) {
-        let palavra = palavras.saude[Math.floor(Math.random() * palavras.saude.length)];
+        palavra = palavras.saude[Math.floor(Math.random() * palavras.saude.length)];
         console.log('palavra tema saúde:', palavra);
     } else {
-        let palavra = palavras.meio_ambiente[Math.floor(Math.random() * palavras.meio_ambiente.length)];
+        palavra = palavras.meio_ambiente[Math.floor(Math.random() * palavras.meio_ambiente.length)];
         console.log('palavra tema meio ambiente:', palavra);
     }
+
+    let forca = palavra.split('');
+    console.log('forca:', forca);
+
+    let letra = prompt('Digite uma letra:');
+    console.log('letra:', letra);
+
+    for(let i = 0; i < forca.length; i++) {
+        console.log(forca[i]);
+        if(forca[i] == letra) {
+            console.log('acertou', letra);
+            break;
+        } 
+    }
+
+
 };
 
 //  Loop infinito para jogar novamente até o usuário desejar sair
