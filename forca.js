@@ -44,17 +44,29 @@ function iniciaJogo() {
     let forca = palavra.split('');
     console.log('forca:', forca);
 
-    let letra = prompt('Digite uma letra:');
-    console.log('letra:', letra);
+    let forca2 = Array(forca.length).fill("_");
 
-    for(let i = 0; i < forca.length; i++) {
-        console.log(forca[i]);
-        if(forca[i] == letra) {
-            console.log('acertou', letra);
-            break;
-        } 
+    let erro = 0;
+    let acertou = false;
+
+    while(erro < 7) {
+        let letra = prompt('Digite uma letra:');
+        console.log('letra:', letra);
+        for(let i = 0; i < forca.length; i++) {
+            if(forca[i] == letra) {
+                console.log('acertou', letra);
+                forca2[i] = letra;
+                acertou = true;
+                console.log('forca2:', forca2);
+            }
+        }
+        if(acertou == false) {
+            console.log("Você errou!");
+            erro ++;
+            console.log('erro:', erro);
+        }    
+        acertou = false;    
     }
-
 
 };
 
