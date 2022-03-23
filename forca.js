@@ -16,50 +16,38 @@ function iniciaJogo() {
     const nome = prompt("Digite seu nome:");
     const email = prompt("Digite seu email:");
     const jogador = new Usuario(nome, email);
+
+    //  ITEM #3
+    const palavras = {
+        educacao: ['escola', 'biblioteca', 'professor'],
+        saude: ['hospital', 'medicamento', 'enfermeiro'],
+        meio_ambiente: ['ecossitema', 'fauna', 'flora']
+    };
+
+    const tema = prompt("Qual tema deseja jogar?\n1 - EDUCAÇÃO\n2 - SAÚDE\n3 - MEIO AMBIENTE");
+          
+    console.log(tema);
+
+    if(tema == 1) {
+        let palavra = palavras.educacao[Math.floor(Math.random() * palavras.educacao.length)];
+        console.log('palavra tema educação:', palavra);
+    } else if(tema == 2) {
+        let palavra = palavras.saude[Math.floor(Math.random() * palavras.saude.length)];
+        console.log('palavra tema saúde:', palavra);
+    } else {
+        let palavra = palavras.meio_ambiente[Math.floor(Math.random() * palavras.meio_ambiente.length)];
+        console.log('palavra tema meio ambiente:', palavra);
+    }
 };
 
 //  Loop infinito para jogar novamente até o usuário desejar sair
-
 //  ITEM #2
 let jogar = true;
 while(jogar) {  //  Implicitamente: jogar == true
-    // iniciaJogo();
+    iniciaJogo();
 
     //  Inserir validação na entrada abaixo.
     //  TODO ITEM #5
     const resposta = prompt("Deseja jogar novamente?\n1 - SIM\n2 - NÃO");
-
-    if(resposta == 1) {
-        
-        //  ITEM #3
-
-        const palavras = {
-            educacao: ['escola', 'biblioteca', 'professor'],
-            saude: ['hospital', 'medicamento', 'enfermeiro'],
-            meio_ambiente: ['ecossitema', 'fauna', 'flora']
-        };
-    
-        const tema = prompt("Qual tema deseja jogar?\n1 - EDUCAÇÃO\n2 - SAÚDE\n3 - MEIO AMBIENTE");
-              
-        console.log(tema);
-    
-        if(tema == 1) {
-            let index = Math.floor(Math.random()*palavras.educacao.length); // escolhe um item aleatório do 1º array do objeto 'palavras'
-            console.log('index:', index);
-            let palavra = palavras.educacao[index]; 
-            console.log('palavra:', palavra);
-        } else if(tema == 2) {
-            let index = Math.floor(Math.random()*palavras.saude.length); 
-            console.log('index:', index);
-            let palavra = palavras.saude[index]; 
-            console.log('palavra:', palavra);
-        } else {
-            let index = Math.floor(Math.random()*palavras.meio_ambiente.length);
-            console.log('index:', index);
-            let palavra = palavras.meio_ambiente[index]; 
-            console.log('palavra:', palavra);
-        }
-    } else {
-        jogar = false;
-    }
+    if (resposta == 2) jogar = false;
 };
