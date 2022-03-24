@@ -1,6 +1,6 @@
 class Usuario {
     constructor(nome, email) {
-        this.nome = nome
+        this.nome = nome 
         this.email = email
         //  Contador de Vitórias e Derrotas
         //  ITEM #4
@@ -13,9 +13,16 @@ function iniciaJogo() {
     //  Inserir validação nas entradas abaixo.
     //  TODO ITEM #5
     //  ITEM #1
-    const nome = prompt("Digite seu nome:");
-    const email = prompt("Digite seu email:");
-    const jogador = new Usuario(nome, email);
+    while (true){
+        const nome = prompt("Digite seu nome:");
+        const email = prompt("Digite seu email:");
+        if (nome != '' && email != ''){
+            const jogador = new Usuario(nome, email);
+            break;
+        } else { alert('Nome ou e-mail, invalido.')}
+    }
+    
+    
 
     //  ITEM #3
     const palavras = {
@@ -26,7 +33,13 @@ function iniciaJogo() {
 
     //  Inserir validação nas entradas abaixo.
     //  TODO ITEM #5
-    const tema = prompt("Qual tema deseja jogar?\n1 - EDUCAÇÃO\n2 - SAÚDE\n3 - MEIO AMBIENTE");
+    while (true){
+        const tema = prompt("Qual tema deseja jogar?\n1 - EDUCAÇÃO\n2 - SAÚDE\n3 - MEIO AMBIENTE");
+        if (tema == 1 || tema == 2 || tema == 3){
+            break;
+        } else { alert('Opção invalida!!! digite 1, 2 ou 3. ')}
+    }
+    
     
     let palavra = '';
 
@@ -50,7 +63,14 @@ function iniciaJogo() {
     while(erro < 7) {
         //  Inserir validação nas entradas abaixo.
         //  TODO ITEM #5
-        let letra = prompt('Digite uma letra:');
+        
+        while (true){
+            let letra = prompt('Digite uma letra:').toLowerCase();
+            if (letra.length == 1){
+                //W
+                break;
+            } else { alert('Digite um caracter de a-z')}
+        }
         console.log('letra:', letra);
         for(let i = 0; i < forca.length; i++) {
             if(forca[i] == letra) {
