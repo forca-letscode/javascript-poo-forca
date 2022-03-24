@@ -57,6 +57,7 @@ function iniciaJogo() {
                 console.log('acertou', letra);
                 forca2[i] = letra;
                 acertou = true;
+                if(forca.join("") == forca2.join("")) erro = 8;
                 console.log('forca2:', forca2);
             }
         }
@@ -68,6 +69,11 @@ function iniciaJogo() {
         acertou = false;    
     }
 
+    if(forca.join("") == forca2.join("")) {
+        console.log("Você ganhou");
+    } else {
+        console.log("Você perdeu");
+    }
 };
 
 //  Loop infinito para jogar novamente até o usuário desejar sair
