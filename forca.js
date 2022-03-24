@@ -7,6 +7,7 @@ class Usuario {
         this.vitorias = 0
         this.derrotas = 0
     }
+
     get res(){
         return `${this.nome},${this.email}`
     }
@@ -20,9 +21,8 @@ class Usuario {
         saude: ['hospital', 'medicamento', 'enfermeiro'],
         meio_ambiente: ['ecossistema', 'fauna', 'flora']
     };
-  
-    //  Inserir validação nas entradas abaixo.
-    //  TODO ITEM #5
+    
+    //  ITEM #5
     let tema = ''
     while (true){
         tema = prompt("Qual tema deseja jogar?\n1 - EDUCAÇÃO\n2 - SAÚDE\n3 - MEIO AMBIENTE");
@@ -51,8 +51,7 @@ class Usuario {
       let acertou = false;
   
       while(erro < 7) {
-          //  Inserir validação nas entradas abaixo.
-          //  TODO ITEM #5
+          //  ITEM #5
           let letra = ''
           while (true){
             letra = prompt('Digite uma letra:').toLowerCase();
@@ -62,10 +61,9 @@ class Usuario {
                     break;
                 } else {alert('Digite apenas letras de A-Z.')}
                     
-            } else {alert('Digite apenas uma caracter para continue.')}
+            } else {alert('Digite apenas uma caracter para continuar.')}
                 
           }
-          
           
           console.log('letra:', letra);
           for(let i = 0; i < forca.length; i++) {
@@ -77,6 +75,7 @@ class Usuario {
                   console.log('forca2:', forca2);
               }
           }
+        
           if(acertou == false) {
               console.log("Você errou!");
               console.log('Você usou: ', ++erro, " de 7 tentativas");
@@ -113,10 +112,7 @@ class Usuario {
     return op
   }
   
-  
-//  Inserir validação nas entradas abaixo.
-//  TODO ITEM #5
-//  ITEM #1
+//  ITEM #1 e #5
 let jogador = ''
 while (true){
 nome = prompt("Digite seu nome:");
@@ -129,11 +125,11 @@ if (nome != '' && email != ''){
 console.log(jogador.res)
 
 op = true
-while(op) {  //  Implicitamente: jogar == true
+while(op) {
     iniciaJogo()
     opcao();
     console.log(op);
     //console.log(op);
     console.log('//===========================//==========================//')
 };
-console.log('Fim de jogo!!!')
+console.log('Fim de jogo!!!');
