@@ -21,23 +21,61 @@ function iniciaJogo() {
     const palavras = {
         educacao: ['escola', 'biblioteca', 'professor'],
         saude: ['hospital', 'medicamento', 'enfermeiro'],
-        meio_ambiente: ['ecossitema', 'fauna', 'flora']
+        meio_ambiente: ['ecossistema', 'fauna', 'flora']
     };
 
+    //  Inserir validação nas entradas abaixo.
+    //  TODO ITEM #5
     const tema = prompt("Qual tema deseja jogar?\n1 - EDUCAÇÃO\n2 - SAÚDE\n3 - MEIO AMBIENTE");
-          
-    console.log(tema);
+    
+    let palavra = '';
 
     if(tema == 1) {
-        let palavra = palavras.educacao[Math.floor(Math.random() * palavras.educacao.length)];
-        console.log('palavra tema educação:', palavra);
+        palavra = palavras.educacao[Math.floor(Math.random() * palavras.educacao.length)];
+        console.log('Palavra do tema educação:', palavra);
     } else if(tema == 2) {
-        let palavra = palavras.saude[Math.floor(Math.random() * palavras.saude.length)];
-        console.log('palavra tema saúde:', palavra);
+        palavra = palavras.saude[Math.floor(Math.random() * palavras.saude.length)];
+        console.log('Palavra do tema saúde:', palavra);
     } else {
-        let palavra = palavras.meio_ambiente[Math.floor(Math.random() * palavras.meio_ambiente.length)];
-        console.log('palavra tema meio ambiente:', palavra);
+        palavra = palavras.meio_ambiente[Math.floor(Math.random() * palavras.meio_ambiente.length)];
+        console.log('Palavra do tema meio ambiente:', palavra);
     }
+
+    let forca = palavra.split('');
+    let forca2 = Array(forca.length).fill("_");
+
+    let erro = 0;
+    let acertou = false;
+
+    while(erro < 7) {
+        //  Inserir validação nas entradas abaixo.
+        //  TODO ITEM #5
+        let letra = prompt('Digite uma letra:');
+        console.log('letra:', letra);
+        for(let i = 0; i < forca.length; i++) {
+            if(forca[i] == letra) {
+                console.log('acertou', letra);
+                forca2[i] = letra;
+                acertou = true;
+                if(forca.join("") == forca2.join("")) erro = 8;
+                console.log('forca2:', forca2);
+            }
+        }
+        if(acertou == false) {
+            console.log("Você errou!");
+            console.log('Você usou: ', ++erro, " de 7 tentativas");
+        }    
+        acertou = false;    
+    }
+
+    if(forca.join("") == forca2.join("")) {
+        console.log("Você ganhou!");
+        jogador.vitorias++;
+    } else {
+        console.log("Você perdeu!");
+        jogador.derrotas++;
+    }
+    console.log(`Vitórias: ${jogador.vitorias}\nDerrotas: ${jogador.derrotas}`);
 };
 
 //  Loop infinito para jogar novamente até o usuário desejar sair
