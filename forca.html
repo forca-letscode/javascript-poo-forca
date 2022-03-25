@@ -38,10 +38,12 @@
     <div id="forca" style="display: none;">
 
         <h1><span id="forca-palavra"></span></h1>
-        <label for="">Digite uma letra:&ensp;</label>
-        <input type="text" id="letra">
-        <button onclick="tentar()">Tentar!</button>
-        <br><br>
+        <form action="">
+            <label for="">Digite uma letra:&ensp;</label>
+            <input type="text" id="letra" required>
+            <button onclick="tentar()" type="submit" id="tentar-botao">Tentar!</button>
+        </form>
+        <br>
 
         <label for="">Tentativas restantes: <span id="tentativas"></span></label>
     </div>

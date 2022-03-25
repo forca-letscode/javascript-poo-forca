@@ -5,8 +5,9 @@ const div_forca = document.getElementById("forca");
 const tentativas = document.getElementById("tentativas");
 const forca_palavra = document.getElementById("forca-palavra");
 let jogador, forca, forca2, chances = 7;
-//  a linha abaixo impede que a página recarregue ao clicar em "Iniciar jogo!"
+//  as linhas abaixo impedem que a página recarregue ao clicar nos botões
 document.getElementById("jogador").addEventListener("submit", function(event) { event.preventDefault() });
+document.getElementById("tentar-botao").addEventListener("submit", function(event) { event.preventDefault() });
 
 class Usuario {
     constructor(nome, email) {
@@ -68,9 +69,10 @@ function jogar() {
 }
 
 function tentar() {
-
-    let acertou = false;
+    
     const letra_minuscula = (letra.value).toLowerCase();
+    if (letra_minuscula == "") return;
+    let acertou = false;
     
     for(let i = 0; i < forca.length; i++) { // percorre a palavra letra por letra
         if(forca[i] == letra_minuscula) {   // compara se a palavra contém a letra digitada
