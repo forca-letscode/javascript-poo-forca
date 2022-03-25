@@ -1,4 +1,4 @@
-// classe responsavel por guardar registro de usuário e total de vitórias ou derrotas no jogo
+// classe responsável por guardar registro de usuário e total de vitórias ou derrotas no jogo
 class Usuario {
   constructor(nome, email) {
     this.nome = nome;
@@ -7,7 +7,7 @@ class Usuario {
     this.derrotas = 0;
   }
   get res(){
-      return `${this.nome},${this.email}`
+      return `Nome: ${this.nome}\nEmail: ${this.email}`
   }
 };
 
@@ -27,22 +27,34 @@ function cadastro() {
 
 // inicia o jogo
 function iniciaJogo() {
-    // cadastro de temas a escoler do usuário
+    // cadastro de temas a escolha do usuário
     const palavras = {
-      educacao: ['escola', 'biblioteca', 'professor'],
-      saude: ['hospital', 'medicamento', 'enfermeiro'],
-      meio_ambiente: ['ecossistema', 'fauna', 'flora']
-  };
+        educacao: ['escola', 'biblioteca', 'professor'],
+        saude: ['hospital', 'medicamento', 'enfermeiro'],
+        meio_ambiente: ['ecossistema', 'fauna', 'flora']
+    };
 
-  let tema = ''
-  // filtro de opções para o "tema"
-  while (true){
-      tema = prompt("Qual tema deseja jogar?\n1 - EDUCAÇÃO\n2 - SAÚDE\n3 - MEIO AMBIENTE");
-      if (tema == 1 || tema == 2 || tema == 3){
-          break;
-      } else { alert('Opção invalida!!! digite 1, 2 ou 3.')}
-  }
-  console.log(tema)
+let tema = ''
+// filtro de opções para o "tema"
+while (true){
+    tema = prompt("Qual tema deseja jogar?\n1 - EDUCAÇÃO\n2 - SAÚDE\n3 - MEIO AMBIENTE");
+    switch (tema) {
+        case "1":
+            tema = "Educação";
+            break;
+        case "2":
+            tema = "Saúde";
+            break;
+        case "3":
+            tema = "Meio Ambiente";
+            break;
+        default:
+            alert('Opção invalida!!! digite 1, 2 ou 3.');
+            continue;
+    }
+    break;
+}
+console.log("Tema escolhido:", tema);
 
   
   let palavra = '';
