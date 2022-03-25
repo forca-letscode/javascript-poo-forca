@@ -18,7 +18,8 @@ function cadastro() {
   if (nome == '' || email == ''){
       alert('Nome ou e-mail, invalido.');
       cadastro();   
-  } else { 
+  } else if (nome == null || email == null) jogador = new Usuario("Sem nome", "Sem email") ;
+  else { 
       jogador = new Usuario(nome, email);
   }
   console.log(jogador.res)
