@@ -31,18 +31,20 @@
 
         <br><br>
 
-        <button onclick="verificaJogador()" type="submit">Iniciar jogo!</button>
-        <hr><br><br>
-    </form> 
+        <button onclick="verificaJogador()" type="submit" id="iniciar">Iniciar jogo!</button>
+        <hr>
+    </form>
 
-    <!-- <label for="">Digite uma letra:</label>
-    <input type="text" id="letra">
+    <div id="forca" style="display: none;">
 
-    <button onclick="tentar()">Tentar!</button>
+        <h1><span id="forca-palavra"></span></h1>
+        <label for="">Digite uma letra:&ensp;</label>
+        <input type="text" id="letra">
+        <button onclick="tentar()">Tentar!</button>
+        <br><br>
 
-    <br><br>
-
-    <p id="forca2"></p> -->
+        <label for="">Tentativas restantes: <span id="tentativas"></span></label>
+    </div>
 
     <script src="forca.js"></script>
 </body>
