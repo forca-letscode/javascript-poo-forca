@@ -34,41 +34,31 @@ function iniciaJogo() {
         meio_ambiente: ['ecossistema', 'fauna', 'flora']
     };
 
-let tema = ''
-// filtro de opções para o "tema"
-while (true){
-    tema = prompt("Qual tema deseja jogar?\n1 - EDUCAÇÃO\n2 - SAÚDE\n3 - MEIO AMBIENTE");
-    switch (tema) {
-        case "1":
-            tema = "Educação";
-            break;
-        case "2":
-            tema = "Saúde";
-            break;
-        case "3":
-            tema = "Meio Ambiente";
-            break;
-        default:
-            alert('Opção invalida!!! digite 1, 2 ou 3.');
-            continue;
+    let tema = '';
+    let palavra = '';
+    // filtro de opções para o "tema" e seleção da palavra a ser jogada
+    while (true){
+        tema = prompt("Qual tema deseja jogar?\n1 - EDUCAÇÃO\n2 - SAÚDE\n3 - MEIO AMBIENTE");
+        switch (tema) {
+            case "1":
+                tema = "Educação";
+                palavra = palavras.educacao[Math.floor(Math.random() * palavras.educacao.length)];
+                break;
+            case "2":
+                tema = "Saúde";
+                palavra = palavras.saude[Math.floor(Math.random() * palavras.saude.length)];
+                break;
+            case "3":
+                tema = "Meio Ambiente";
+                palavra = palavras.meio_ambiente[Math.floor(Math.random() * palavras.meio_ambiente.length)];
+                break;
+            default:
+                alert('Opção invalida!!! digite 1, 2 ou 3.');
+                continue;
+        }
+        break;
     }
-    break;
-}
-console.log("Tema escolhido:", tema);
-
-  
-  let palavra = '';
-  // sorteio da "palavra" secreta conforme "tema"
-    if(tema == 1) {
-        palavra = palavras.educacao[Math.floor(Math.random() * palavras.educacao.length)];
-        console.log('Palavra do tema educação:', palavra);
-    } else if(tema == 2) {
-        palavra = palavras.saude[Math.floor(Math.random() * palavras.saude.length)];
-        console.log('Palavra do tema saúde:', palavra);
-    } else {
-        palavra = palavras.meio_ambiente[Math.floor(Math.random() * palavras.meio_ambiente.length)];
-        console.log('Palavra do tema meio ambiente:', palavra);
-    }
+    console.log("Tema escolhido:", tema);
 
     let forca = palavra.split(''); // divide "palavra" em um Array para analise, na variável "forca" 
     let forca2 = Array(forca.length).fill("_"); // clona Array "forca" substituindo de as letras por "_" (para efeito de comparação posterior)
