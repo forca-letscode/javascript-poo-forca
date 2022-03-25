@@ -115,33 +115,32 @@ function iniciaJogo() {
 
 // decide o termino do jogo
 function opcao(){
-  let resp = prompt("Deseja continuar [S/N]").toUpperCase();
-  switch (resp) {
-    case 'S':
-      op = true
-    break;
+    let resp = prompt("Deseja continuar [S/N]");
+    if (resp == null) return op = false;
+    switch (resp.toUpperCase()) {
+        case 'S':
+            op = true;
+            break;
 
-    case 'N':
-      op = false
-    break;
+        case 'N':
+            op = false;
+            break;
 
-    default:
-      alert('Opção invalida digite "S"= Sim e "N"= Não.')
-      opcao()
-    break;
-  }
-  return op
+        default:
+            alert('Opção invalida digite "S"= Sim e "N"= Não.');
+            opcao();
+            break;
+    }
 }
 
 // corpo principal
-cadastro()
-op = true
+cadastro();
+op = true;
 // loop infinito
 while(op) {
-  iniciaJogo()
-  opcao();
-  console.log(op);
-  console.log('//===========================//==========================//')
-};
-// apos termino do jogo
-console.log('Fim de jogo!!!')
+    iniciaJogo();
+    opcao();
+}
+// após o termino do jogo
+console.log('//===========================//==========================//')
+console.log('Fim de jogo!!!');
