@@ -1,42 +1,52 @@
+// classe responsavel por guardar registro de usuário e total de vitórias ou derrotas no jogo
 class Usuario {
-    constructor(nome, email) {
-        this.nome = nome 
-        this.email = email
-        //  Contador de Vitórias e Derrotas
-        //  ITEM #4
-        this.vitorias = 0
-        this.derrotas = 0
-    }
+  constructor(nome, email) {
+    this.nome = nome;
+    this.email = email;
+    this.vitorias = 0;
+    this.derrotas = 0;
+  }
+  get res(){
+      return `${this.nome},${this.email}`
+  }
 };
 
+// validação de cadastro no objeto "jogador"
+function cadastro() {
+  nome = prompt("Digite seu nome:");
+  email = prompt("Digite seu email:");
+  if (nome == '' || email == ''){
+      alert('Nome ou e-mail, invalido.');
+      cadastro();   
+  } else if (nome == null || email == null) jogador = new Usuario("Sem nome", "Sem email") ;
+  else { 
+      jogador = new Usuario(nome, email);
+  }
+  console.log(jogador.res)
+} 
+
+// inicia o jogo
 function iniciaJogo() {
-    //  ITEM #1 e #5
-    let nome, email;
-    while (true){
-        nome = prompt("Digite seu nome:");
-        email = prompt("Digite seu email:");
-        if ((nome != '' && email != '') && (nome != null && email != null)) break;
-        else alert('Nome ou e-mail inválido.');
-    }
-
-    const jogador = new Usuario(nome, email);
-    
-    //  ITEM #3
+    // cadastro de temas a escoler do usuário
     const palavras = {
-        educacao: ['escola', 'biblioteca', 'professor'],
-        saude: ['hospital', 'medicamento', 'enfermeiro'],
-        meio_ambiente: ['ecossistema', 'fauna', 'flora']
-    };
+      educacao: ['escola', 'biblioteca', 'professor'],
+      saude: ['hospital', 'medicamento', 'enfermeiro'],
+      meio_ambiente: ['ecossistema', 'fauna', 'flora']
+  };
 
-    //  ITEM #5
-    let tema;
-    while (true){
-        tema = prompt("Qual tema deseja jogar?\n1 - EDUCAÇÃO\n2 - SAÚDE\n3 - MEIO AMBIENTE");
-        if (tema == 1 || tema == 2 || tema == 3) break;
-        else alert('Opção invalida!!! Digite 1, 2 ou 3. ');
-    }
-    
-    let palavra;
+  let tema = ''
+  // filtro de opções para o "tema"
+  while (true){
+      tema = prompt("Qual tema deseja jogar?\n1 - EDUCAÇÃO\n2 - SAÚDE\n3 - MEIO AMBIENTE");
+      if (tema == 1 || tema == 2 || tema == 3){
+          break;
+      } else { alert('Opção invalida!!! digite 1, 2 ou 3.')}
+  }
+  console.log(tema)
+
+  
+  let palavra = '';
+  // sorteio da "palavra" secreta conforme "tema"
     if(tema == 1) {
         palavra = palavras.educacao[Math.floor(Math.random() * palavras.educacao.length)];
         console.log('Palavra do tema educação:', palavra);
@@ -48,42 +58,48 @@ function iniciaJogo() {
         console.log('Palavra do tema meio ambiente:', palavra);
     }
 
-    let forca = palavra.split('');
-    let forca2 = Array(forca.length).fill("_");
-    let letra;
-    let erro = 0;
-    let acertou = false;
+    let forca = palavra.split(''); // divide "palavra" em um Array para analise, na variável "forca" 
+    let forca2 = Array(forca.length).fill("_"); // clona Array "forca" substituindo de as letras por "_" (para efeito de comparação posterior)
+
+    let erro = 0; // contador de erros
+    let acertou = false; // funciona como chave de acertos e erros
+
+    // enqunto usuário não erra 7 letras o jogo prossegui até todas as letras da "palavra" secreta seja descoberta
     while(erro < 7) {
-        //  Inserir validação nas entradas abaixo.
-        //  TODO ITEM #5
+        
+        let letra = ''
+        // filtro de entrada de cada letra digitada pelo usuário
         while (true){
-            letra = prompt('Digite uma letra:');
-            if (letra != null && letra.length == 1){  // adicionado verificação do null pois estava quebrando ao clicar no cancelar
-                letra.toLowerCase();
-                //W
-                break;
-            } else { alert('Digite um caracter de a-z')}
+          letra = prompt('Digite uma letra:').toLowerCase();
+          if (letra.length == 1){
+              codigo = letra.charCodeAt(0)
+              if (codigo >= 97 && codigo <= 122){
+                  break;
+              } else {alert('Digite apenas letras de A-Z.')}
+                  
+          } else {alert('Digite apenas uma caracter para continue.')}
+              
         }
-
         console.log('letra:', letra);
-        for(let i = 0; i < forca.length; i++) {  // percorre a palavra letra por letra
 
-            if(forca[i] == letra) {  // compara se a palavra contém a letra digitada
+        // faz contagem de erros e acertos do usuário a cada letra e finaliza se hover 7 erros ou "palavra" seja descoberta
+        for(let i = 0; i < forca.length; i++) {
+            if(forca[i] == letra) {
                 console.log('acertou', letra);
-                forca2[i] = letra;  //  adiciona a letra correta e no local correto
-                acertou = true;  // flag para não contabilizar erro
-                if(forca.join("") == forca2.join("")) erro = 8;  // verifica se a palavra está completa e finaliza
+                forca2[i] = letra;
+                acertou = true;
+                if(forca.join("") == forca2.join("")) erro = 8;
                 console.log('forca2:', forca2);
             }
         }
-
         if(acertou == false) {
             console.log("Você errou!");
             console.log('Você usou: ', ++erro, " de 7 tentativas");
         }    
-        acertou = false;  //  reseta a flag de erro
+        acertou = false;    
     }
 
+    // contagem de número de vitórias do jogador ou derrotas no final de cada jogada
     if(forca.join("") == forca2.join("")) {
         console.log("Você ganhou!");
         jogador.vitorias++;
@@ -92,21 +108,37 @@ function iniciaJogo() {
         jogador.derrotas++;
     }
     console.log(`Vitórias: ${jogador.vitorias}\nDerrotas: ${jogador.derrotas}`);
+}
+
+// decide o termino do jogo
+function opcao(){
+  let resp = prompt("Deseja continuar [S/N]").toUpperCase();
+  switch (resp) {
+    case 'S':
+      op = true
+    break;
+
+    case 'N':
+      op = false
+    break;
+
+    default:
+      alert('Opção invalida digite "S"= Sim e "N"= Não.')
+      opcao()
+    break;
+  }
+  return op
+}
+
+// corpo principal
+cadastro()
+op = true
+// loop infinito
+while(op) {
+  iniciaJogo()
+  opcao();
+  console.log(op);
+  console.log('//===========================//==========================//')
 };
-
-//  Loop infinito para jogar novamente até o usuário desejar sair
-//  ITEM #2
-let jogar = true;
-let resposta;
-while(jogar) {  //  Implicitamente: jogar == true
-
-    iniciaJogo();
-
-    //  ITEM #5
-    while(resposta != 1 && resposta != 2) {
-        resposta = prompt("Deseja jogar novamente?\n1 - SIM\n2 - NÃO");
-        if (resposta == 2 ) jogar = false;
-        else if (resposta == 1) break;
-        else alert('Opção invalida!!! Digite 1 ou 2.');
-    }
-};
+// apos termino do jogo
+console.log('Fim de jogo!!!')
