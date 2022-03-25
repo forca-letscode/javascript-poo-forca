@@ -11,7 +11,7 @@
 
     <hr>
 
-    <h2>Cadastro jogador</h2>
+    <h2>Jogador</h2>
 
     <label for="">Nome:</label>
     <input type="text" id="nome">
@@ -23,20 +23,25 @@
 
     <label for="">Escolha o tema que deseja jogar</label>
     <select id="tema">
-        <option value="Educação">Educação</option>
-        <option value="Saúde">Saúde</option>
-        <option value="Meio ambiente">Meio ambiente</option>
+        <option value="educacao">Educação</option> // id="educacao"
+        <option value="saude">Saúde</option>
+        <option value="meio_ambiente">Meio ambiente</option>
     </select>
+
+    <br><br>
+
+    <button onclick="iniciaJogo()">Iniciar jogo</button>
 
     <br><br>
 
     <label for="">Digite uma letra:</label>
     <input type="text" id="letra">
 
+    <button onclick="tentar()">Tentar!</button>
+
     <br><br>
 
-    <button onclick="iniciaJogo()">Iniciar jogo</button>
-
+    <p id="forca2"></p>
 
     <script src="forca.js"></script>
 </body>
