@@ -24,10 +24,10 @@ function verificaJogador() {
     const email = document.getElementById("email");
 
     if (nome.value == "" || email.value == "" || tema.value == "") return;
-    else if (nome.disabled);    //  pula para a linha 34
+    else if (nome.disabled);    //  pula para a linha 35
     else {
         jogador = new Usuario(nome.value, email.value);
-        nome.disabled = true;
+        nome.disabled = true;   //  desativa os inputs
         email.disabled = true;
         tema.disabled = true;
         iniciar.disabled = true;
@@ -44,18 +44,15 @@ function jogar() {
     }
 
     // seleção da palavra a ser jogada
-    let palavra, tema_txt;
+    let palavra;
     switch (tema.value) {
         case "educacao":
-            tema_txt = "Educação";
             palavra = palavras.educacao[Math.floor(Math.random() * palavras.educacao.length)];
             break;
         case "saude":
-            tema_txt = "Saúde";
             palavra = palavras.saude[Math.floor(Math.random() * palavras.saude.length)];
             break;
         case "meio_ambiente":
-            tema_txt = "Meio Ambiente";
             palavra = palavras.meio_ambiente[Math.floor(Math.random() * palavras.meio_ambiente.length)];
             break;
     }
@@ -63,9 +60,8 @@ function jogar() {
     forca = palavra.split("");  //  separa a palavra em letras
     forca2 = Array(forca.length).fill("_");     //  criar um array do mesmo tamanho e substitui as letras por "_"
     forca_palavra.textContent = forca2.join(" ");   //  exibe a palavra na tela ( _ )
-    tentativas.textContent = chances;
+    tentativas.textContent = chances;   //  atualiza o contador de chances
     div_forca.style.display = "inline-block";   // exibe o elemento escondido
-    
 }
 
 function tentar() {
@@ -81,14 +77,13 @@ function tentar() {
 
             forca_palavra.textContent = forca2.join(" ");   //  atualiza a palavra na tela
             if(forca.join("") == forca2.join("")) {  // verifica se a palavra está completa e finaliza
-                forca_palavra.textContent = forca2.join(" ");
                 jogador.vitorias++;
                 final(true);
             }
         }
     }
 
-    if(acertou == false) {
+    if(!acertou) {
         alert("Você errou!");
         tentativas.textContent = --chances;
         if (chances < 1) {
@@ -104,7 +99,7 @@ function tentar() {
 function final(resultado) {
 
     let novamente;
-    if (resultado) novamente = prompt(`Parabéns, você acertou a palavra!\nVitórias: ${jogador.vitorias}  |  Derrotas: ${jogador.derrotas}\nDeseja jogar novamente? [S/N]`);
+    if (resultado) novamente = prompt(`Parabéns, você acertou a palavra ${forca.join("").toUpperCase()}!\nVitórias: ${jogador.vitorias}  |  Derrotas: ${jogador.derrotas}\nDeseja jogar novamente? [S/N]`);
     else novamente = prompt(`Que pena, você perdeu! A palavra era: ${forca.join("").toUpperCase()}\nVitórias: ${jogador.vitorias}  |  Derrotas: ${jogador.derrotas}\nDeseja jogar novamente? [S/N]`);
 
     if (novamente == null) final(resultado);
@@ -125,7 +120,7 @@ function final(resultado) {
 
 function repetir(resultado) {
 
-    if (!resultado) location.reload();
+    if (!resultado) location.reload();  //  recarrega a página
     else {
         chances = 7;
         tema.disabled = false;
