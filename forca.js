@@ -1,146 +1,130 @@
-// classe responsável por guardar registro de usuário e total de vitórias ou derrotas no jogo
+const tema = document.getElementById("tema");
+const letra = document.getElementById("letra");
+const iniciar = document.getElementById("iniciar");
+const div_forca = document.getElementById("forca");
+const tentativas = document.getElementById("tentativas");
+const forca_palavra = document.getElementById("forca-palavra");
+let jogador, forca, forca2, chances = 7;
+//  as linhas abaixo impedem que a página recarregue ao clicar nos botões
+document.getElementById("jogador").addEventListener("submit", function(event) { event.preventDefault() });
+document.getElementById("tentar-botao").addEventListener("submit", function(event) { event.preventDefault() });
+
 class Usuario {
-  constructor(nome, email) {
-    this.nome = nome;
-    this.email = email;
-    this.vitorias = 0;
-    this.derrotas = 0;
-  }
-  get res(){
-      return `Nome: ${this.nome}\nEmail: ${this.email}`
-  }
-};
+    constructor(nome, email) {
+      this.nome = nome;
+      this.email = email;
+      this.vitorias = 0;
+      this.derrotas = 0;
+    }
+}
 
-// validação de cadastro no objeto "jogador"
-function cadastro() {
-  nome = prompt("Digite seu nome:");
-  email = prompt("Digite seu email:");
-  if (nome == '' || email == ''){
-      alert('Nome ou e-mail, invalido.');
-      cadastro();   
-  } else if (nome == null || email == null) jogador = new Usuario("Sem nome", "Sem email") ;
-  else { 
-      jogador = new Usuario(nome, email);
-  }
-  console.log(jogador.res)
-} 
+function verificaJogador() {
 
-// inicia o jogo
-function iniciaJogo() {
-    // cadastro de temas a escolha do usuário
+    const nome = document.getElementById("nome");
+    const email = document.getElementById("email");
+
+    if (nome.value == "" || email.value == "" || tema.value == "") return;
+    else if (nome.disabled);    //  pula para a linha 35
+    else {
+        jogador = new Usuario(nome.value, email.value);
+        nome.disabled = true;   //  desativa os inputs
+        email.disabled = true;
+        tema.disabled = true;
+        iniciar.disabled = true;
+    }
+    jogar();
+}
+
+function jogar() {
+
     const palavras = {
         educacao: ['escola', 'biblioteca', 'professor'],
         saude: ['hospital', 'medicamento', 'enfermeiro'],
         meio_ambiente: ['ecossistema', 'fauna', 'flora']
-    };
+    }
 
-    let tema = '';
-    let palavra = '';
-    // filtro de opções para o "tema" e seleção da palavra a ser jogada
-    while (true){
-        tema = prompt("Qual tema deseja jogar?\n1 - EDUCAÇÃO\n2 - SAÚDE\n3 - MEIO AMBIENTE");
-        switch (tema) {
-            case "1":
-                tema = "Educação";
-                palavra = palavras.educacao[Math.floor(Math.random() * palavras.educacao.length)];
+    // seleção da palavra a ser jogada
+    let palavra;
+    switch (tema.value) {
+        case "educacao":
+            palavra = palavras.educacao[Math.floor(Math.random() * palavras.educacao.length)];
+            break;
+        case "saude":
+            palavra = palavras.saude[Math.floor(Math.random() * palavras.saude.length)];
+            break;
+        case "meio_ambiente":
+            palavra = palavras.meio_ambiente[Math.floor(Math.random() * palavras.meio_ambiente.length)];
+            break;
+    }
+
+    forca = palavra.split("");  //  separa a palavra em letras
+    forca2 = Array(forca.length).fill("_");     //  criar um array do mesmo tamanho e substitui as letras por "_"
+    forca_palavra.textContent = forca2.join(" ");   //  exibe a palavra na tela ( _ )
+    tentativas.textContent = chances;   //  atualiza o contador de chances
+    div_forca.style.display = "inline-block";   // exibe o elemento escondido
+}
+
+function tentar() {
+    
+    const letra_minuscula = (letra.value).toLowerCase();
+    if (letra_minuscula == "") return;
+    let acertou = false;
+    
+    for(let i = 0; i < forca.length; i++) { // percorre a palavra letra por letra
+        if(forca[i] == letra_minuscula) {   // compara se a palavra contém a letra digitada
+            forca2[i] = letra_minuscula;    //  adiciona a letra correta e no local correto
+            acertou = true;     // flag para não contabilizar erro
+
+            forca_palavra.textContent = forca2.join(" ");   //  atualiza a palavra na tela
+            if(forca.join("") == forca2.join("")) {  // verifica se a palavra está completa e finaliza
+                jogador.vitorias++;
+                final(true);
+            }
+        }
+    }
+
+    if(!acertou) {
+        alert("Você errou!");
+        tentativas.textContent = --chances;
+        if (chances < 1) {
+            jogador.derrotas++;
+            final(false);
+        }
+    }
+
+    letra.value = "";
+    letra.focus();
+}
+
+function final(resultado) {
+
+    let novamente;
+    if (resultado) novamente = prompt(`Parabéns, você acertou a palavra ${forca.join("").toUpperCase()}!\nVitórias: ${jogador.vitorias}  |  Derrotas: ${jogador.derrotas}\nDeseja jogar novamente? [S/N]`);
+    else novamente = prompt(`Que pena, você perdeu! A palavra era: ${forca.join("").toUpperCase()}\nVitórias: ${jogador.vitorias}  |  Derrotas: ${jogador.derrotas}\nDeseja jogar novamente? [S/N]`);
+
+    if (novamente == null) final(resultado);
+    else {
+        switch (novamente.toUpperCase()) {
+            case "S":
+                repetir(true);
                 break;
-            case "2":
-                tema = "Saúde";
-                palavra = palavras.saude[Math.floor(Math.random() * palavras.saude.length)];
-                break;
-            case "3":
-                tema = "Meio Ambiente";
-                palavra = palavras.meio_ambiente[Math.floor(Math.random() * palavras.meio_ambiente.length)];
+            case "N":
+                repetir(false);
                 break;
             default:
-                alert('Opção invalida!!! digite 1, 2 ou 3.');
-                continue;
+                final(resultado);
+                break;
         }
-        break;
-    }
-    console.log("Tema escolhido:", tema);
-
-    let forca = palavra.split(''); // divide "palavra" em um Array para analise, na variável "forca" 
-    let forca2 = Array(forca.length).fill("_"); // clona Array "forca" substituindo de as letras por "_" (para efeito de comparação posterior)
-
-    let erro = 0; // contador de erros
-    let acertou = false; // funciona como chave de acertos e erros
-    console.log("===  INÍCIO DO JOGO  ===");
-    // enqunto usuário não erra 7 letras o jogo prossegue até todas as letras da "palavra" secreta sejam descobertas
-    while(erro < 7) {
-        console.log(forca2);
-        let letra = ''
-        // filtro de entrada de cada letra digitada pelo usuário
-        while (true){
-            letra = prompt('Digite uma letra:').toLowerCase();
-            if (letra.length == 1){
-                codigo = letra.charCodeAt(0)
-                if (codigo >= 97 && codigo <= 122) break;
-                else alert('Digite apenas letras de A-Z.');
-            }
-            else alert('Digite apenas uma caracter para continuar.');
-        }
-        console.log('Letra:', letra);
-
-        // faz contagem de erros e acertos do usuário a cada letra e finaliza se hover 7 erros ou "palavra" seja descoberta
-        for(let i = 0; i < forca.length; i++) {   // percorre a palavra letra por letra
-            if(forca[i] == letra) {   // compara se a palavra contém a letra digitada
-                console.log('Você acertou!');
-                forca2[i] = letra;  //  adiciona a letra correta e no local correto
-                acertou = true;   // flag para não contabilizar erro
-                if(forca.join("") == forca2.join("")) {   // verifica se a palavra está completa e finaliza
-                    erro = 8;
-                    console.log(forca2);
-                }
-            }
-        }
-        if(acertou == false) {
-            console.log("Você errou!");
-            console.log('Você usou:', ++erro, "de 7 tentativas");
-        }    
-        acertou = false;    
-    }
-
-    // contagem de número de vitórias do jogador ou derrotas no final de cada jogada
-    if(forca.join("") == forca2.join("")) {
-        console.log("Você ganhou!");
-        jogador.vitorias++;
-    } else {
-        console.log("Você perdeu!");
-        jogador.derrotas++;
-    }
-    console.log("A palavra era:", forca.join("").toUpperCase());
-    console.log(`Vitórias: ${jogador.vitorias}\nDerrotas: ${jogador.derrotas}`);
-}
-
-// decide o termino do jogo
-function opcao(){
-    let resp = prompt("Deseja continuar [S/N]");
-    if (resp == null) return op = false;
-    switch (resp.toUpperCase()) {
-        case 'S':
-            op = true;
-            break;
-
-        case 'N':
-            op = false;
-            break;
-
-        default:
-            alert('Opção invalida digite "S"= Sim e "N"= Não.');
-            opcao();
-            break;
     }
 }
 
-// corpo principal
-cadastro();
-op = true;
-// loop infinito
-while(op) {
-    iniciaJogo();
-    opcao();
+function repetir(resultado) {
+
+    if (!resultado) location.reload();  //  recarrega a página
+    else {
+        chances = 7;
+        tema.disabled = false;
+        iniciar.disabled = false;
+        div_forca.style.display = "none";   // esconde o elemento
+    }
 }
-// após o termino do jogo
-console.log('//===========================//==========================//')
-console.log('Fim de jogo!!!');

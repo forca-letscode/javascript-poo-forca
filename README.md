@@ -6,4 +6,4 @@
 - [X] Deve ter um contador de vitórias e derrotas
 - [X] Fazer todas as validações necessárias (prever erros do usuário, como digitar um número ao invés de uma letra, dentre outros);
 
-- [ ] EXTRA: CRIAR A INTERFACE GRÁFICA
+- [X] EXTRA: CRIAR A INTERFACE GRÁFICA

@@ -4,11 +4,51 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="forca.css">
     <title>Jogo da Forca</title>
 </head>
 <body>
+    
     <h1>Jogo da Forca</h1>
-    <hr>
+
+    <h2>Informações do Jogador</h2>
+
+    <form id="jogador">
+        <label for="">Nome:</label>
+        <input type="text" id="nome" required autofocus>
+
+        <label for="">&ensp;E-mail:</label>
+        <input type="text" id="email" required>
+
+        <br><br>
+
+        <label for="">Escolha o tema que deseja jogar:</label>
+        <select id="tema" required>
+            <option value="" selected disabled style="display: none;">Selecione uma opção</option>
+            <option value="educacao">Educação</option>
+            <option value="saude">Saúde</option>
+            <option value="meio_ambiente">Meio ambiente</option>
+        </select>
+
+        <br><br>
+
+        <button onclick="verificaJogador()" type="submit" id="iniciar">Iniciar jogo!</button>
+       
+    </form>
+    
+
+    <div id="forca" style="display: none;">
+
+        <h2><span id="forca-palavra"></span></h2>
+        <form action="">
+            <label for="">Digite uma letra:&ensp;</label>
+            <input type="text" id="letra" required>
+            <button onclick="tentar()" type="submit" id="tentar-botao">Tentar!</button>
+        </form>
+        <br>
+
+        <label for="">Tentativas restantes: <span id="tentativas"></span></label>
+    </div>
 
     <script src="forca.js"></script>
 </body>
