@@ -10,37 +10,39 @@
     <h1>Jogo da Forca</h1>
     <hr>
 
-    <h2>Jogador</h2>
+    <h2>Informações do Jogador</h2>
 
-    <label for="">Nome:</label>
-    <input type="text" id="nome">
+    <form id="jogador">
+        <label for="">Nome:</label>
+        <input type="text" id="nome" required autofocus>
 
-    <label for="">E-mail:</label>
-    <input type="text" id="email">
+        <label for="">&ensp;E-mail:</label>
+        <input type="text" id="email" required>
 
-    <br><br>
+        <br><br>
 
-    <label for="">Escolha o tema que deseja jogar</label>
-    <select id="tema">
-        <option value="educacao">Educação</option> // id="educacao"
-        <option value="saude">Saúde</option>
-        <option value="meio_ambiente">Meio ambiente</option>
-    </select>
+        <label for="">Escolha o tema que deseja jogar:</label>
+        <select id="tema" required>
+            <option value="" selected disabled style="display: none;">Selecione uma opção</option>
+            <option value="educacao">Educação</option>
+            <option value="saude">Saúde</option>
+            <option value="meio_ambiente">Meio ambiente</option>
+        </select>
 
-    <br><br>
+        <br><br>
 
-    <button onclick="iniciaJogo()">Iniciar jogo</button>
+        <button onclick="verificaJogador()" type="submit">Iniciar jogo!</button>
+        <hr><br><br>
+    </form> 
 
-    <br><br>
-
-    <label for="">Digite uma letra:</label>
+    <!-- <label for="">Digite uma letra:</label>
     <input type="text" id="letra">
 
     <button onclick="tentar()">Tentar!</button>
 
     <br><br>
 
-    <p id="forca2"></p>
+    <p id="forca2"></p> -->
 
     <script src="forca.js"></script>
 </body>
