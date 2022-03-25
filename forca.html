@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="forca.css">
     <title>Jogo da Forca</title>
 </head>
 <body>
+    
     <h1>Jogo da Forca</h1>
-    <hr>
 
     <h2>Informações do Jogador</h2>
 
@@ -32,12 +33,13 @@
         <br><br>
 
         <button onclick="verificaJogador()" type="submit" id="iniciar">Iniciar jogo!</button>
-        <hr>
+       
     </form>
+    
 
     <div id="forca" style="display: none;">
 
-        <h1><span id="forca-palavra"></span></h1>
+        <h2><span id="forca-palavra"></span></h2>
         <form action="">
             <label for="">Digite uma letra:&ensp;</label>
             <input type="text" id="letra" required>
