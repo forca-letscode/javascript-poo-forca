@@ -83,12 +83,12 @@ function iniciaJogo() {
         console.log('Letra:', letra);
 
         // faz contagem de erros e acertos do usuário a cada letra e finaliza se hover 7 erros ou "palavra" seja descoberta
-        for(let i = 0; i < forca.length; i++) {
-            if(forca[i] == letra) {
+        for(let i = 0; i < forca.length; i++) {   // percorre a palavra letra por letra
+            if(forca[i] == letra) {   // compara se a palavra contém a letra digitada
                 console.log('Você acertou!');
-                forca2[i] = letra;
-                acertou = true;
-                if(forca.join("") == forca2.join("")) {
+                forca2[i] = letra;  //  adiciona a letra correta e no local correto
+                acertou = true;   // flag para não contabilizar erro
+                if(forca.join("") == forca2.join("")) {   // verifica se a palavra está completa e finaliza
                     erro = 8;
                     console.log(forca2);
                 }
