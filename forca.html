@@ -8,8 +8,35 @@
 </head>
 <body>
     <h1>Jogo da Forca</h1>
-    
+
     <hr>
+
+    <h2>Cadastro jogador</h2>
+
+    <label for="">Nome:</label>
+    <input type="text" id="nome">
+
+    <label for="">E-mail:</label>
+    <input type="text" id="email">
+
+    <br><br>
+
+    <label for="">Escolha o tema que deseja jogar</label>
+    <select id="tema">
+        <option value="Educação">Educação</option>
+        <option value="Saúde">Saúde</option>
+        <option value="Meio ambiente">Meio ambiente</option>
+    </select>
+
+    <br><br>
+
+    <label for="">Digite uma letra:</label>
+    <input type="text" id="letra">
+
+    <br><br>
+
+    <button onclick="iniciaJogo()">Iniciar jogo</button>
+
 
     <script src="forca.js"></script>
 </body>
