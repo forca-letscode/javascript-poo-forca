@@ -2,6 +2,7 @@ const nome = document.getElementById("nome");
 const email = document.getElementById("email");
 const tema = document.getElementById("tema");
 const letra = document.getElementById("letra");
+let jogador;
 //  a linha abaixo impede que a página recarregue ao clicar em "Iniciar jogo!"
 document.getElementById("jogador").addEventListener("submit", function(event) { event.preventDefault() });
 
@@ -19,14 +20,18 @@ class Usuario {
 function verificaJogador() {
 
     if (nome.value == "" || email.value == "" || tema.value == "") return;
+    else if (nome.disabled);    //  pula para a linha 30
     else {
-        const jogador = new Usuario(nome.value, email.value);
-        console.log(jogador.info());
-        jogar();
+        jogador = new Usuario(nome.value, email.value);
+        nome.disabled = true;
+        email.disabled = true;
     }
+
+    console.log(jogador.info());
+    jogar();
 }
 
-function jogar() {
+function sorteiaPalavra() {
 
     const palavras = {
         educacao: ['escola', 'biblioteca', 'professor'],
@@ -35,8 +40,7 @@ function jogar() {
     }
 
     // seleção da palavra a ser jogada
-    let palavra = '';
-    let tema_txt = '';
+    let palavra, tema_txt;
     switch (tema.value) {
         case "educacao":
             tema_txt = "Educação";
@@ -51,10 +55,17 @@ function jogar() {
             palavra = palavras.meio_ambiente[Math.floor(Math.random() * palavras.meio_ambiente.length)];
             break;
     }
-    console.log('Tema escolhido:', tema_txt);
 
-    // let forca = palavra.split('');
-    // forca2 = Array(forca.length).fill("_");
+    console.log('Tema escolhido:', tema_txt);
+    return palavra;
+}
+
+function jogar() {
+
+    const resposta = sorteiaPalavra();
+    const forca = resposta.split("");
+    const forca2 = Array(forca.length).fill("_");
+
     // let erro = 0;
     // let acertou = false;
 
