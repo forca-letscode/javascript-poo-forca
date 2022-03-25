@@ -65,38 +65,38 @@ function iniciaJogo() {
 
     let erro = 0; // contador de erros
     let acertou = false; // funciona como chave de acertos e erros
-
-    // enqunto usuário não erra 7 letras o jogo prossegui até todas as letras da "palavra" secreta seja descoberta
+    console.log("===  INÍCIO DO JOGO  ===");
+    // enqunto usuário não erra 7 letras o jogo prossegue até todas as letras da "palavra" secreta sejam descobertas
     while(erro < 7) {
-        
+        console.log(forca2);
         let letra = ''
         // filtro de entrada de cada letra digitada pelo usuário
         while (true){
-          letra = prompt('Digite uma letra:').toLowerCase();
-          if (letra.length == 1){
-              codigo = letra.charCodeAt(0)
-              if (codigo >= 97 && codigo <= 122){
-                  break;
-              } else {alert('Digite apenas letras de A-Z.')}
-                  
-          } else {alert('Digite apenas uma caracter para continue.')}
-              
+            letra = prompt('Digite uma letra:').toLowerCase();
+            if (letra.length == 1){
+                codigo = letra.charCodeAt(0)
+                if (codigo >= 97 && codigo <= 122) break;
+                else alert('Digite apenas letras de A-Z.');
+            }
+            else alert('Digite apenas uma caracter para continuar.');
         }
-        console.log('letra:', letra);
+        console.log('Letra:', letra);
 
         // faz contagem de erros e acertos do usuário a cada letra e finaliza se hover 7 erros ou "palavra" seja descoberta
         for(let i = 0; i < forca.length; i++) {
             if(forca[i] == letra) {
-                console.log('acertou', letra);
+                console.log('Você acertou!');
                 forca2[i] = letra;
                 acertou = true;
-                if(forca.join("") == forca2.join("")) erro = 8;
-                console.log('forca2:', forca2);
+                if(forca.join("") == forca2.join("")) {
+                    erro = 8;
+                    console.log(forca2);
+                }
             }
         }
         if(acertou == false) {
             console.log("Você errou!");
-            console.log('Você usou: ', ++erro, " de 7 tentativas");
+            console.log('Você usou:', ++erro, "de 7 tentativas");
         }    
         acertou = false;    
     }
@@ -109,6 +109,7 @@ function iniciaJogo() {
         console.log("Você perdeu!");
         jogador.derrotas++;
     }
+    console.log("A palavra era:", forca.join("").toUpperCase());
     console.log(`Vitórias: ${jogador.vitorias}\nDerrotas: ${jogador.derrotas}`);
 }
 
