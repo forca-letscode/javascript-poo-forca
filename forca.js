@@ -1,10 +1,4 @@
-const tema = document.getElementById("tema");
-const letra = document.getElementById("letra");
-const iniciar = document.getElementById("iniciar");
-const div_forca = document.getElementById("forca");
-const tentativas = document.getElementById("tentativas");
-const forca_palavra = document.getElementById("forca-palavra");
-let jogador, forca, forca2, chances = 7;
+
 //  as linhas abaixo impedem que a página recarregue ao clicar nos botões
 document.getElementById("jogador").addEventListener("submit", function(event) { event.preventDefault() });
 document.getElementById("tentar-botao").addEventListener("submit", function(event) { event.preventDefault() });
@@ -18,24 +12,37 @@ class Usuario {
     }
 }
 
-function verificaJogador() {
+/* Função criarJogador() é:
+- pura, pois não depende de fatores externos
+- composta ?? 
+*/
+function criarJogador() {
 
     const nome = document.getElementById("nome");
     const email = document.getElementById("email");
+    const tema = document.getElementById("tema");
+    const iniciar = document.getElementById("iniciar");
 
     if (nome.value == "" || email.value == "" || tema.value == "") return;
     else if (nome.disabled);    //  pula para a linha 35
     else {
-        jogador = new Usuario(nome.value, email.value);
+        let jogador = new Usuario(nome.value, email.value);
         nome.disabled = true;   //  desativa os inputs
         email.disabled = true;
         tema.disabled = true;
         iniciar.disabled = true;
     }
-    jogar();
+    jogar(tema);
 }
 
-function jogar() {
+// Função jogar() é impura, pois são utilizadas 2 funções da biblioteca Math 
+function jogar(tema) {
+
+    let chances = 7;
+
+    const div_forca = document.getElementById("forca");
+    const tentativas = document.getElementById("tentativas");
+    const forca_palavra = document.getElementById("forca-palavra");
 
     const palavras = {
         educacao: ['escola', 'biblioteca', 'professor'],
@@ -57,14 +64,18 @@ function jogar() {
             break;
     }
 
-    forca = palavra.split("");  //  separa a palavra em letras
-    forca2 = Array(forca.length).fill("_");     //  criar um array do mesmo tamanho e substitui as letras por "_"
+    // mantendo a imulatibilidade da variável 'palavra'
+    let forca = palavra.split("");  //  separa a palavra em letras
+    let forca2 = Array(forca.length).fill("_");     //  criar um array do mesmo tamanho e substitui as letras por "_"
     forca_palavra.textContent = forca2.join(" ");   //  exibe a palavra na tela ( _ )
     tentativas.textContent = chances;   //  atualiza o contador de chances
     div_forca.style.display = "inline-block";   // exibe o elemento escondido
 }
 
+// Função tentar() é impura, pois utiliza a função toLowerCase()
 function tentar() {
+
+    const letra = document.getElementById("letra");
     
     const letra_minuscula = (letra.value).toLowerCase();
     if (letra_minuscula == "") return;
@@ -118,6 +129,7 @@ function final(resultado) {
     }
 }
 
+// Função tentar() é impura, pois utiliza a função reload()
 function repetir(resultado) {
 
     if (!resultado) location.reload();  //  recarrega a página
