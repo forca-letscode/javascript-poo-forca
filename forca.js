@@ -1,4 +1,3 @@
-
 //  as linhas abaixo impedem que a página recarregue ao clicar nos botões
 document.getElementById("jogador").addEventListener("submit", function(event) { event.preventDefault() });
 document.getElementById("tentar-botao").addEventListener("submit", function(event) { event.preventDefault() });
@@ -24,9 +23,11 @@ function criarJogador() {
     const iniciar = document.getElementById("iniciar");
 
     if (nome.value == "" || email.value == "" || tema.value == "") return;
-    else if (nome.disabled);    //  pula para a linha 35
+    else if (nome.disabled);    //  pula para a linha 36
     else {
-        let jogador = new Usuario(nome.value, email.value);
+        //  window é a variável global do browser, ela representa e tela que exibe o DOM
+        //  pode ser substituído por globalThis para funcionar em outros ambientes (NodeJS por exemplo)
+        window.jogador = new Usuario(nome.value, email.value);
         nome.disabled = true;   //  desativa os inputs
         email.disabled = true;
         tema.disabled = true;
@@ -38,11 +39,12 @@ function criarJogador() {
 // Função jogar() é impura, pois são utilizadas 2 funções da biblioteca Math 
 function jogar(tema) {
 
-    let chances = 7;
-
-    const div_forca = document.getElementById("forca");
-    const tentativas = document.getElementById("tentativas");
-    const forca_palavra = document.getElementById("forca-palavra");
+    //  window também pode ser chamada implicitamente ao criar uma variável sem definir seu tipo (const, let, var)
+    //  também funciona para chamar as funções do window
+    chances = 7;
+    div_forca = document.getElementById("forca");
+    tentativas = document.getElementById("tentativas");
+    forca_palavra = document.getElementById("forca-palavra");
 
     const palavras = {
         educacao: ['escola', 'biblioteca', 'professor'],
@@ -65,11 +67,12 @@ function jogar(tema) {
     }
 
     // mantendo a imulatibilidade da variável 'palavra'
-    let forca = palavra.split("");  //  separa a palavra em letras
-    let forca2 = Array(forca.length).fill("_");     //  criar um array do mesmo tamanho e substitui as letras por "_"
+    forca = palavra.split("");  //  separa a palavra em letras
+    forca2 = Array(forca.length).fill("_");     //  criar um array do mesmo tamanho e substitui as letras por "_"
     forca_palavra.textContent = forca2.join(" ");   //  exibe a palavra na tela ( _ )
     tentativas.textContent = chances;   //  atualiza o contador de chances
     div_forca.style.display = "inline-block";   // exibe o elemento escondido
+    return document.getElementById("letra").focus();
 }
 
 // Função tentar() é impura, pois utiliza a função toLowerCase()
@@ -135,8 +138,8 @@ function repetir(resultado) {
     if (!resultado) location.reload();  //  recarrega a página
     else {
         chances = 7;
-        tema.disabled = false;
-        iniciar.disabled = false;
+        tema.disabled = false;      //  ativa o botão de escolha do tema 
+        iniciar.disabled = false;   //  ativa o botão para iniciar o jogo
         div_forca.style.display = "none";   // esconde o elemento
     }
 }
